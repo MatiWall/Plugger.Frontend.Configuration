@@ -1,0 +1,17 @@
+{
+  "name": "@plugger/configuration",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "git@github.com:MatiWall/Plugger.Frontend.Configuration.git",
+  "author": "Matias Wallenius <MatiWall@live.dk>",
+  "license": "no",
+  "private": false,
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "yaml": "^2.6.1",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

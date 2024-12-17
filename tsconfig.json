@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ES6",                       // Use ESModules
+    "moduleResolution": "node",             // Resolve modules like Node.js
+    "esModuleInterop": true,                // Ensures ESModule compatibility
+    "strict": true,                         // Enable strict type checking options
+    "skipLibCheck": true,                   // Skip type checking of all declaration files
+    "forceConsistentCasingInFileNames": true, // Ensure consistent file naming
+    "isolatedModules": true,                // Required for transpiling each module separately
+    "resolveJsonModule": true,              // Allow importing JSON files
+    "outDir": "./dist",                     // Output directory for compiled files
+    "sourceMap": true,                       // Generate sourcemap files
+    "jsx": "react",  
+    "lib": ["es6", "dom", "es2017"],
+    "declaration": true,                     // Generate declaration files
+    "emitDeclarationOnly": false  
+  },
+  "include": ["src/**/*.ts", "src/app/App.tsx"],
+  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
+  "paths": {
+    "@catcode/*": ["./node_modules/@plugger/*"]
+  }
+}
