@@ -6,12 +6,22 @@
   "author": "Matias Wallenius <MatiWall@live.dk>",
   "license": "no",
   "private": false,
+  "scripts": {
+    "test": "jest --config jest.config.js",
+    "build": "tsc",
+    "pub": "yarn publish --registry http://verdaccio.mw.local/"
+  },
   "dependencies": {
     "fs": "^0.0.1-security",
+    "typescript": "^5.7.2",
     "yaml": "^2.6.1",
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "jest": "^29.7.0"
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "ts-jest": "^29.2.5"
   }
 }
