@@ -1,6 +1,6 @@
 {
   "name": "@plugger/configuration",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "git@github.com:MatiWall/Plugger.Frontend.Configuration.git",
@@ -13,6 +13,9 @@
     "pub": "yarn publish --registry http://verdaccio.mw.local/",
     "local-add": "yarn add --registry http://verdaccio.mw.local/"
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@babel/preset-env": "^7.26.0",
     "@plugger/utils": "0.0.2",
