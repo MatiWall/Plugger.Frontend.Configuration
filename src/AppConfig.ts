@@ -9,39 +9,42 @@ import { idGenerator } from '@plugger/utils';
 type ConfigType = z.infer<typeof configSchema>;
 
 class AppConfig {
-    filePath?: string;
     config: ConfigType;
     schema: ZodType;
 
-    constructor(filePath?: string, config?: ConfigType) {
+    constructor(config?: string | ConfigType) {
         this.schema = configSchema;
 
-        if (filePath !== undefined) {
-            this.filePath = filePath;
-            this.config = this.loadAndValidateConfig();
-        } else if (config !== undefined) {
-            this.config = this.schema.parse(config);
-        } else {
-            throw new Error('Both filePath and config cannot be undefined.');
+        let tmpConfig;
+        if (config === undefined ){
+            tmpConfig = {}
         }
+        else if (typeof config === 'string') {
+            tmpConfig = this.loadAndValidateConfig(config);
+        } else {
+            tmpConfig = config
+        }
+
+        this.config = this.schema.parse(tmpConfig);
+
     }
 
-    private loadAndValidateConfig(): ConfigType {
-        const ext = path.extname(this.filePath || '').toLowerCase();
+    private loadAndValidateConfig(filePath: string): object {
+        const ext = path.extname(filePath || '').toLowerCase();
 
         // Ensure file exists
-        if (!this.filePath || !fs.existsSync(this.filePath)) {
-            throw new Error(`File not found: ${this.filePath}`);
+        if (!filePath || !fs.existsSync(filePath)) {
+            throw new Error(`File not found: ${filePath}`);
         }
 
         // Read the file
-        const fileContent = fs.readFileSync(this.filePath, 'utf-8');
+        const fileContent = fs.readFileSync(filePath, 'utf-8');
 
         // Parse the file content
         const parsedConfig = this.parseFileContent(fileContent, ext);
 
         // Validate the parsed configuration
-        return this.schema.parse(parsedConfig);
+        return parsedConfig;
     }
 
     private parseFileContent(fileContent: string, ext: string): object {
@@ -54,7 +57,7 @@ class AppConfig {
                 throw new Error(`Unsupported file format: ${ext}`);
             }
         } catch (error) {
-            throw new Error(`Failed to parse file: ${this.filePath}. Error: ${error.message}`);
+            throw new Error(`Failed to parse file. Error: ${error.message}`);
         }
     }
 
@@ -65,13 +68,11 @@ class AppConfig {
 }
 
 function createAppConfig({
-    filePath,
-    config,
+    config
 }: {
-    filePath?: string;
-    config?: ConfigType;
-}) {
-    return new AppConfig(filePath, config);
+    config?: ConfigType | string;
+} = {}) {
+    return new AppConfig(config);
 }
 
 export { createAppConfig, AppConfig };

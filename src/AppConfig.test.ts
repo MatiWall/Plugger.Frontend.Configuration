@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { parse as parseYaml } from 'yaml';
 import configSchema from './schema';
+import { create } from 'domain';
 
 
 // Mock fs and path modules
@@ -17,6 +18,10 @@ describe('AppConfig', () => {
         jest.clearAllMocks();  // Reset mocks after each test
     });
 
+    test.only('Create AppConfig with defaults', ()=>{
+        const appConfig = createAppConfig();
+    })
+
     test('should load JSON config correctly', () => {
         const mockFilePath = 'config.json';
         const mockJsonData = { app: { title: 'test', url: 'https://test.com'} };
@@ -24,7 +29,7 @@ describe('AppConfig', () => {
         (fs.readFileSync as jest.Mock).mockReturnValue(JSON.stringify(mockJsonData));  // Simulate file content
         (path.extname as jest.Mock).mockReturnValue('.json');  // Simulate the file extension
         
-        const appConfig = createAppConfig({filePath: mockFilePath});
+        const appConfig = createAppConfig({config: mockFilePath});
 
         expect(appConfig.config).toEqual(configSchema.parse(mockJsonData));
     });
