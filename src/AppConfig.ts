@@ -2,28 +2,29 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { parse as parseYaml } from 'yaml';
 import {z, ZodType} from 'zod'
+import configSchema from './schema';
 
+type ConfigType = z.infer<typeof configSchema>;
 
 class AppConfig {
     filePath: string;
 
-    config: object = {}
+    config: ConfigType
 
-    schema: ZodType
+    schema: ZodType;
 
     constructor(
-        filePath: string,
-        schema?: ZodType
+        filePath: string
         ){
         this.filePath = filePath;
         
-        this.schema = schema || z.object({})
+        this.schema = configSchema;
 
         this.config = this.loadConfig();
 
     }
 
-    private loadConfig(): any {
+    private loadConfig(): ConfigType {
         const ext = path.extname(this.filePath).toLowerCase();
 
         // Check if the file exists
@@ -34,26 +35,27 @@ class AppConfig {
         // Read the file
         const fileContent = fs.readFileSync(this.filePath, 'utf-8');
 
+        let config = {};
         // Parse based on file extension
         if (ext === '.json') {
-            return JSON.parse(fileContent);
+            config = JSON.parse(fileContent);
         } else if (ext === '.yaml' || ext === '.yml') {
-            return parseYaml(fileContent);
+            config = parseYaml(fileContent);
         } else {
             throw new Error(`Unsupported file format: ${ext}`);
         }
+        
+        return this.schema.parse(config);
     }
 }
 
 
 function createAppConfig({
-    filePath,
-    schema = z.object({})
+    filePath
 }: {
-    filePath: string, 
-    schema: ZodType
+    filePath: string
 }){
-    return new AppConfig(filePath, schema);
+    return new AppConfig(filePath);
 }
 
 
