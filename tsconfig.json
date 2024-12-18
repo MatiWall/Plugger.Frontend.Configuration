@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
+    "module": "ESNext",
     "target": "ES6",                       // Use ESModules
     "moduleResolution": "node",             // Resolve modules like Node.js
     "esModuleInterop": true,                // Ensures ESModule compatibility
@@ -20,6 +20,6 @@
   "include": ["src/**/*.ts", "src/app/App.tsx"],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
   "paths": {
-    "@catcode/*": ["./node_modules/@plugger/*"]
+    
   }
 }

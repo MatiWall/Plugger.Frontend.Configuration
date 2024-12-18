@@ -1,13 +1,14 @@
-import {z} from 'zod';
+import { z } from 'zod';
 
+// Define the schema
 const configSchema = z.object({
     app: z.object({
-        title: z.string().default('App Name'),
-        url: z.string().url('String is not a valid url')
+        title: z.string().default('App Name'), 
+        url: z.string().url().default('http://default.url') 
     }),
     environment: z.enum(['development', 'production', 'test']).default('development'),
-    extensions: z.record(z.object({})).default({})
-})
+    extensions: z.record(z.string(), z.unknown()).default({})
+});
 
-
-export default configSchema
+// Export the schema
+export default configSchema;

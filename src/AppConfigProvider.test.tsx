@@ -1,14 +1,25 @@
-// AppConfigProvider.test.tsx
 import React from 'react';
 import { render, screen, act } from '@testing-library/react';
-import { AppConfig } from './AppConfig';
+import { createAppConfig, ConfigType } from './AppConfig';
 import { AppConfigProvider, useAppConfig } from './AppConfigProvider';
 
+import '@testing-library/jest-dom';
+
+// Mock fs and path modules
+jest.mock('fs');
+jest.mock('path');
+jest.mock('yaml', () => ({
+  parse: jest.fn()
+}));
+
 // Mock data for testing
-const mockConfig = {
+const mockConfig: ConfigType = {
   app: { title: 'Test App', url: 'https://test.com' },
+  environment: 'test',
   extensions: {},
 };
+
+const appConfig = createAppConfig({config: mockConfig});
 
 // Test component that uses `useAppConfig`
 const TestComponent = () => {
@@ -22,8 +33,10 @@ const TestComponent = () => {
 };
 
 describe('AppConfigProvider', () => {
-  it('provides the correct config to the children component', () => {
-    const appConfig = new AppConfig(undefined, mockConfig);
+
+
+  test('provides the correct config to the children component', () => {
+    const appConfig = createAppConfig({config: mockConfig});
     render(
       <AppConfigProvider appConfig={appConfig}>
         <TestComponent />
@@ -34,20 +47,15 @@ describe('AppConfigProvider', () => {
     expect(screen.getByText('https://test.com')).toBeInTheDocument();
   });
 
-  it('throws an error when useAppConfig is used outside the provider', () => {
-    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
+  test('throws an error when useAppConfig is used outside the provider', () => {
 
-    act(() => {
-      expect(() => render(<TestComponent />)).toThrowError(
+      expect(() => render(<TestComponent />)).toThrow(
         'useAppConfig must be used within an AppConfigProvider'
       );
-    });
-
-    consoleError.mockRestore();
   });
 
-  it('works with undefined filePath and config', () => {
-    const appConfig = new AppConfig(undefined, mockConfig);
+  test('works with undefined filePath and config', () => {
+    const appConfig = createAppConfig({config: mockConfig});
     render(
       <AppConfigProvider appConfig={appConfig}>
         <TestComponent />

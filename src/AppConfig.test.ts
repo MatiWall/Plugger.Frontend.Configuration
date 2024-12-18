@@ -1,10 +1,8 @@
-import { AppConfig, createAppConfig } from './AppConfig';
+import { AppConfig, createAppConfig, ConfigType } from './AppConfig';
 import * as fs from 'fs';
 import * as path from 'path';
-import { z } from 'zod';
 import { parse as parseYaml } from 'yaml';
 import configSchema from './schema';
-
 
 
 // Mock fs and path modules
@@ -61,7 +59,7 @@ describe('AppConfig', () => {
         
         expect(() => {
             new AppConfig(mockFilePath);
-        }).toThrowError('Unsupported file format: .txt');
+        }).toThrow('Unsupported file format: .txt');
     });
 
     test('should throw an error if the config does not match the schema', () => {
@@ -75,4 +73,24 @@ describe('AppConfig', () => {
             new AppConfig(mockFilePath);
         }).toThrow();
     });
+
+    test('Access Extension config', ()=>{
+
+        const extensionConfig = {
+            'this': 'is the config for an extensions'
+        }
+
+        const mockJsonData: ConfigType = { 
+            app: { title: 'test', url: 'https://test.com'}, 
+            environment: 'test',
+            extensions: {
+                'component:test/test': extensionConfig
+            }
+        };
+        
+        const appConfig = createAppConfig({config: mockJsonData});
+
+
+        expect(appConfig.getExtensionConfig('test', 'test', 'component')).toBe(extensionConfig);
+    })
 });

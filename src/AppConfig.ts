@@ -3,6 +3,8 @@ import * as path from 'path';
 import { parse as parseYaml } from 'yaml';
 import { z, ZodType } from 'zod';
 import configSchema from './schema';
+import { idGenerator } from '@plugger/utils';
+
 
 type ConfigType = z.infer<typeof configSchema>;
 
@@ -54,6 +56,11 @@ class AppConfig {
         } catch (error) {
             throw new Error(`Failed to parse file: ${this.filePath}. Error: ${error.message}`);
         }
+    }
+
+    getExtensionConfig(namespace: string, name: string, kind: string){
+        const id = idGenerator(namespace, name, kind);
+        return this.config.extensions[id];
     }
 }
 
