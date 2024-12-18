@@ -12,7 +12,9 @@
     "pub": "yarn publish --registry http://verdaccio.mw.local/"
   },
   "dependencies": {
+    "@types/react": "^19.0.1",
     "fs": "^0.0.1-security",
+    "react": "^19.0.0",
     "typescript": "^5.7.2",
     "yaml": "^2.6.1",
     "zod": "^3.24.1"

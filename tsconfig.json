@@ -14,7 +14,8 @@
     "jsx": "react",  
     "lib": ["es6", "dom", "es2017"],
     "declaration": true,                     // Generate declaration files
-    "emitDeclarationOnly": false  
+    "emitDeclarationOnly": false  ,
+    "useUnknownInCatchVariables": false
   },
   "include": ["src/**/*.ts", "src/app/App.tsx"],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
