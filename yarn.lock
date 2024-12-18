@@ -1145,6 +1145,18 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@plugger/configuration-core@^0.1.1":
+  version "0.1.1"
+  resolved "http://verdaccio.mw.local/@plugger/configuration-core/-/configuration-core-0.1.1.tgz#e875de604b325a79c40ac7e99b1d01aa8cfe61b5"
+  integrity sha512-/o6VU/DmfOYD9vpjxQqlgW9A7O/Ev9Uvjl9jMTC49Xcbbd6ZJNKYcMFErKLZv9D8iRwEDQd2bG+fk+pBNIYuiw==
+  dependencies:
+    "@babel/preset-env" "^7.26.0"
+    "@plugger/utils" "0.0.2"
+    fs "^0.0.1-security"
+    typescript "^5.7.2"
+    yaml "^2.6.1"
+    zod "^3.24.1"
+
 "@plugger/utils@0.0.2":
   version "0.0.2"
   resolved "http://verdaccio.mw.local/@plugger/utils/-/utils-0.0.2.tgz#e284b1f9c929debef2a979cf4cd4fcfbcc46c931"
@@ -1311,10 +1323,10 @@
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.3.5.tgz#45f9f87398c5dcea085b715c58ddcf1faf65f716"
   integrity sha512-P4t6saawp+b/dFrUr2cvkVsfvPguwsxtH6dNIYRllMsefqFzkZk5UIjzyDOv5g1dXIPdG4Sp1yCR4Z6RCUsG/Q==
 
-"@types/react@^19.0.1":
-  version "19.0.1"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-19.0.1.tgz#a000d5b78f473732a08cecbead0f3751e550b3df"
-  integrity sha512-YW6614BDhqbpR5KtUYzTA+zlA7nayzJRA9ljz9CQoxthR0sDisYZLuvSMsil36t4EH/uAt8T52Xb4sVw17G+SQ==
+"@types/react@^19.0.2":
+  version "19.0.2"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-19.0.2.tgz#9363e6b3ef898c471cb182dd269decc4afc1b4f6"
+  integrity sha512-USU8ZI/xyKJwFTpjSVIrSeHBVAGagkHQKPNbxeWwql/vDmnTIBgx+TJnhFnj1NXgz8XfprU0egV2dROLGpsBEg==
   dependencies:
     csstype "^3.0.2"
 

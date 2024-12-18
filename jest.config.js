@@ -12,6 +12,6 @@ module.exports = {
   },
   extensionsToTreatAsEsm: ['.ts'], // Treat .ts files as ESModules
   transformIgnorePatterns: [
-    'node_modules/(?!yaml)', // Ignore everything in node_modules except yaml
+   
   ]
 };

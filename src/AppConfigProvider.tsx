@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import { ConfigType, AppConfig } from './AppConfig';
+import { ConfigType, AppConfig } from '@plugger/configuration-core';
 
 // Create the AppConfig context with an initial undefined value
 const AppConfigContext = createContext<ConfigType | undefined>(undefined);

@@ -1,6 +1,6 @@
 import React from 'react';
-import { render, screen, act } from '@testing-library/react';
-import { createAppConfig, ConfigType } from './AppConfig';
+import { render, screen } from '@testing-library/react';
+import { createAppConfig, ConfigType } from '@plugger/configuration-core';
 import { AppConfigProvider, useAppConfig } from './AppConfigProvider';
 
 import '@testing-library/jest-dom';
