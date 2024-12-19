@@ -5,11 +5,12 @@ import { AppConfigProvider, useAppConfig } from './AppConfigProvider';
 
 import '@testing-library/jest-dom';
 
-// Mock fs and path modules
-jest.mock('fs');
-jest.mock('path');
-jest.mock('yaml', () => ({
-  parse: jest.fn()
+// Mock fs, path, and yaml modules using Vitest
+import { vi } from 'vitest';
+
+vi.mock('path');
+vi.mock('yaml', () => ({
+  parse: vi.fn(),
 }));
 
 // Mock data for testing
@@ -19,7 +20,7 @@ const mockConfig: ConfigType = {
   extensions: {},
 };
 
-const appConfig = createAppConfig({config: mockConfig});
+const appConfig = createAppConfig({ config: mockConfig });
 
 // Test component that uses `useAppConfig`
 const TestComponent = () => {
@@ -33,10 +34,8 @@ const TestComponent = () => {
 };
 
 describe('AppConfigProvider', () => {
-
-
   test('provides the correct config to the children component', () => {
-    const appConfig = createAppConfig({config: mockConfig});
+    const appConfig = createAppConfig({ config: mockConfig });
     render(
       <AppConfigProvider appConfig={appConfig}>
         <TestComponent />
@@ -48,14 +47,13 @@ describe('AppConfigProvider', () => {
   });
 
   test('throws an error when useAppConfig is used outside the provider', () => {
-
-      expect(() => render(<TestComponent />)).toThrow(
-        'useAppConfig must be used within an AppConfigProvider'
-      );
+    expect(() => render(<TestComponent />)).toThrow(
+      'useAppConfig must be used within an AppConfigProvider'
+    );
   });
 
   test('works with undefined filePath and config', () => {
-    const appConfig = createAppConfig({config: mockConfig});
+    const appConfig = createAppConfig({ config: mockConfig });
     render(
       <AppConfigProvider appConfig={appConfig}>
         <TestComponent />
